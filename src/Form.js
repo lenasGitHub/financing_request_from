@@ -11,6 +11,7 @@ import {
   faUser,
   faSackDollar,
   faSpinner,
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Currency from "./component/currency";
@@ -64,13 +65,12 @@ const Form = () => {
     console.log(data);
   };
 
-  // on Discription Change 
+  // on Discription Change
   const handleDiscriptionChange = (event) => {
     const { name, value } = event.target;
     setCount(value.length);
     setValue(name, value, { shouldValidate: true });
   };
-  
 
   return (
     <div className="flex flex-col items-start mb-6 px-4 md:px-10 py-6 shadow-md rounded-lg border border-gray-100 max-w-[34rem]">
@@ -231,8 +231,18 @@ const Form = () => {
             )}
           </div>
           <div className="w-full md:flex-1 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Start Date
+            <label className="flex justify-between items-center  tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <span className="uppercase">Start Date</span>
+
+              <div class="hidden md:flex group relative  justify-center">
+                <button class="flex w-5 h-5 justify-center items-center rounded-full bg-[#ffc605] py-1 text-sm text-white shadow-sm">
+                  {" "}
+                  <FontAwesomeIcon icon={faQuestion} className="text-xs" />
+                </button>
+                <span class="absolute -top-2 left-8 w-[200px] scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">
+                Note: The date should not start earlier than 15 days from today date
+                </span>
+              </div>
             </label>
             {/* <input
               className="placeholder-gray-400 appearance-none rounded-lg  border text-gray-900  block flex-1 min-w-0 w-full text-sm p-2.5   border-gray-600 placeholder-gray-400   outline-0 outline-black"
@@ -245,7 +255,9 @@ const Form = () => {
               name="startDate"
               dateFormat="dd/MM/yyyy"
               placeholderText="dd/MM/yyyy"
-              onChange={(date) => setValue("startDate", date, { shouldValidate: true })}
+              onChange={(date) =>
+                setValue("startDate", date, { shouldValidate: true })
+              }
               selected={watch("startDate")}
             />
             {errors.startDate && (
@@ -255,7 +267,6 @@ const Form = () => {
             )}
           </div>
         </div>
-
         <button
           type="submit"
           disabled={loading}
